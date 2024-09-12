@@ -164,3 +164,38 @@ footer {
     margin-bottom: 1rem;
     border-radius: 4px;
 }
+
+
+
+/* seccion about me / acerca de mi */
+.about-me-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.about-me-section h2 {
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+    display: block;
+    border: 3px solid #333;
+}
+
+.about-me-section p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
