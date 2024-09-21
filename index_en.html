@@ -69,6 +69,99 @@
         <p>Who knows? Maybe my experience will inspire others to dust off their own dreams.</p>
         <p>Let the adventure begin!</p>
       </article>
+
+      <!-- Segunda entrada - Preparando el entorno de desarrollo: Instalación limpia de Fedora 40 -->
+
+      <article class="blog-entry">
+        <h2>Preparing the Development Environment: Clean Installation of Fedora 40</h2>
+        <p class="date">September 20, 2024</p>
+        <p>Before diving into game development, the crucial first step is preparing the desktop environment. I've chosen
+          my favorite Linux distribution: Fedora, version 40. This choice is based on several factors:</p>
+        <ul>
+          <li>It's a mainstream distribution with extensive community support, which facilitates problem-solving.</li>
+          <li>It offers a good balance between stability and innovation, using the latest software versions.</li>
+          <li>I have previous experience with Fedora and feel comfortable with it.</li>
+          <li>My hardware is highly compatible with this distribution.</li>
+        </ul>
+        <p>To start with a clean installation, I've developed two scripts that facilitate the process of backing up and
+          reinstalling my applications. Here's the first script, which generates a list of installed applications:</p>
+        <pre><code>
+#!/bin/bash
+# Name of the file where applications will be saved
+OUTPUT_FILE="applications.txt"
+
+# Function to get user-installed applications via DNF
+get_dnf_apps() {
+echo "User installed applications (DNF):" > "$OUTPUT_FILE"
+dnf repoquery --userinstalled --queryformat '%{NAME}' | sort | uniq >> "$OUTPUT_FILE"
+}
+
+# Function to get Flatpak installed applications
+get_flatpak_apps() {
+echo -e "\nFlatpak installed applications:" >> "$OUTPUT_FILE"
+flatpak list --app --columns=application | sort >> "$OUTPUT_FILE"
+}
+
+# Execute functions to get the list of applications
+get_dnf_apps
+get_flatpak_apps
+
+echo "The list of user-installed applications has been saved in $OUTPUT_FILE"
+        </code></pre>
+        <p>After obtaining the list of applications, I proceed to format and install Fedora 40 from scratch. Once the
+          system is installed and updated, I run the second script to reinstall all the applications:</p>
+        <pre><code>
+#!/bin/bash
+# Name of the file containing the list of applications
+INPUT_FILE="applications.txt"
+
+# Function to install DNF applications
+install_dnf() {
+echo "Installing DNF applications..."
+APPS_DNF=$(sed -n '/DNF:/,/Flatpak:/p' "$INPUT_FILE" | 
+           grep -v "DNF:" | grep -v "Flatpak:" | tr '\n' ' ')
+if [ -n "$APPS_DNF" ]; then
+    sudo dnf install -y $APPS_DNF
+else
+    echo "No DNF applications found to install."
+fi
+}
+
+# Function to install Flatpak applications
+install_flatpak() {
+echo "Installing Flatpak applications..."
+APPS_FLATPAK=$(sed -n '/Flatpak:/,$ p' "$INPUT_FILE" | 
+               grep -v "Flatpak:" | tr '\n' ' ')
+if [ -n "$APPS_FLATPAK" ]; then
+    for app in $APPS_FLATPAK; do
+        flatpak install -y flathub $app
+    done
+else
+    echo "No Flatpak applications found to install."
+fi
+}
+
+# Check if the input file exists
+if [ ! -f "$INPUT_FILE" ]; then
+echo "The file $INPUT_FILE does not exist. Please run the application listing script first."
+exit 1
+fi
+
+# Execute the installation functions
+install_dnf
+install_flatpak
+echo "Application installation has finished."
+        </code></pre>
+        <p>I hope this information is helpful for those who want to perform a similar process of reinstalling
+          applications on their Linux system. In upcoming entries, I'll share details about the game creation process,
+          including the development of the story and puzzles I'm currently working on. Until next time!</p>
+      </article>
+
+
+
+
+
+
       <!-- Aquí se agregarán más entradas dinámicamente -->
     </section>
 

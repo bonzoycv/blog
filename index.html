@@ -72,6 +72,100 @@
                 <p>¿Quién sabe? Tal vez mi experiencia inspire a otros a desempolvar sus propios sueños.</p>
                 <p>¡Que comience la aventura!</p>
             </article>
+
+
+            <!-- Segunda entrada - Preparando el entorno de desarrollo: Instalación limpia de Fedora 40 -->
+
+            <article class="blog-entry">
+                <h2>Preparando el entorno de desarrollo: Instalación limpia de Fedora 40</h2>
+                <p class="date">21 de septiembre, 2024</p>
+                <p>Antes de sumergirme en el desarrollo del juego, el primer paso crucial es preparar el entorno de
+                    escritorio. He elegido mi distribución Linux favorita: Fedora, en su versión 40. Esta elección se
+                    basa en varios factores:</p>
+                <ul>
+                    <li>Es una distribución mainstream con amplio soporte de la comunidad, lo que facilita la resolución
+                        de problemas.</li>
+                    <li>Ofrece un buen equilibrio entre estabilidad e innovación, utilizando las últimas versiones de
+                        software.</li>
+                    <li>Tengo experiencia previa con Fedora y me siento cómodo con ella.</li>
+                    <li>Mi hardware es altamente compatible con esta distribución.</li>
+                </ul>
+                <p>Para comenzar con una instalación limpia, he desarrollado dos scripts que facilitan el proceso de
+                    respaldo y reinstalación de mis aplicaciones. Aquí está el primer script, que genera una lista de
+                    las aplicaciones instaladas:</p>
+                <pre><code>
+    #!/bin/bash
+    # Nombre del archivo donde se guardarán las aplicaciones
+    ARCHIVO_SALIDA="aplicaciones.txt"
+    
+    # Función para obtener aplicaciones instaladas por el usuario via DNF
+    obtener_apps_dnf() {
+        echo "Aplicaciones instaladas por el usuario (DNF):" > "$ARCHIVO_SALIDA"
+        dnf repoquery --userinstalled --queryformat '%{NAME}' | sort | uniq >> "$ARCHIVO_SALIDA"
+    }
+    
+    # Función para obtener aplicaciones instaladas por Flatpak
+    obtener_apps_flatpak() {
+        echo -e "\nAplicaciones instaladas por Flatpak:" >> "$ARCHIVO_SALIDA"
+        flatpak list --app --columns=application | sort >> "$ARCHIVO_SALIDA"
+    }
+    
+    # Ejecuta las funciones para obtener la lista de aplicaciones
+    obtener_apps_dnf
+    obtener_apps_flatpak
+    
+    echo "La lista de aplicaciones instaladas por el usuario ha sido guardada en $ARCHIVO_SALIDA"
+                </code></pre>
+                <p>Después de obtener la lista de aplicaciones, procedo a formatear e instalar Fedora 40 desde cero. Una
+                    vez instalado y actualizado el sistema, ejecuto el segundo script para reinstalar todas las
+                    aplicaciones:</p>
+                <pre><code>
+    #!/bin/bash
+    # Nombre del archivo que contiene la lista de aplicaciones
+    ARCHIVO_ENTRADA="aplicaciones.txt"
+    
+    # Función para instalar aplicaciones DNF
+    instalar_dnf() {
+        echo "Instalando aplicaciones DNF..."
+        APPS_DNF=$(sed -n '/DNF:/,/Flatpak:/p' "$ARCHIVO_ENTRADA" | 
+                   grep -v "DNF:" | grep -v "Flatpak:" | tr '\n' ' ')
+        if [ -n "$APPS_DNF" ]; then
+            sudo dnf install -y $APPS_DNF
+        else
+            echo "No se encontraron aplicaciones DNF para instalar."
+        fi
+    }
+    
+    # Función para instalar aplicaciones Flatpak
+    instalar_flatpak() {
+        echo "Instalando aplicaciones Flatpak..."
+        APPS_FLATPAK=$(sed -n '/Flatpak:/,$ p' "$ARCHIVO_ENTRADA" | 
+                       grep -v "Flatpak:" | tr '\n' ' ')
+        if [ -n "$APPS_FLATPAK" ]; then
+            for app in $APPS_FLATPAK; do
+                flatpak install -y flathub $app
+            done
+        else
+            echo "No se encontraron aplicaciones Flatpak para instalar."
+        fi
+    }
+    
+    # Verifica si el archivo de entrada existe
+    if [ ! -f "$ARCHIVO_ENTRADA" ]; then
+        echo "El archivo $ARCHIVO_ENTRADA no existe. Por favor, ejecuta primero el script de listado de aplicaciones."
+        exit 1
+    fi
+    
+    # Ejecuta las funciones de instalación
+    instalar_dnf
+    instalar_flatpak
+    echo "La instalación de aplicaciones ha terminado."
+                </code></pre>
+                <p>Espero que esta información sea útil para aquellos que deseen realizar un proceso similar de
+                    reinstalación de aplicaciones en su sistema Linux. En próximas entradas, compartiré detalles sobre
+                    el proceso de creación del juego, incluyendo el desarrollo de la historia y los puzzles en los que
+                    estoy trabajando actualmente. ¡Hasta la próxima!</p>
+            </article>
             <!-- Aquí se agregarán más entradas dinámicamente -->
         </section>
 
