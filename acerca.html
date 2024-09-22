@@ -18,9 +18,16 @@
     <!-- Navegación principal -->
     <nav>
       <ul>
-        <li><a href="./index.html">Artículos</a></li>
-        <!-- <li><a href="#arte">Arte</a></li> -->
-        <li><a href="#acerca">Acerca de mí</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Artículos</a>
+          <div class="dropdown-content">
+            <!-- Modificamos los enlaces para que dirijan a las secciones correspondientes en index.html -->
+            <a href="index.html#linux">Linux</a>
+            <a href="index.html#aventura-grafica">Desarrollo de aventura gráfica</a>
+            <a href="index.html#otros">Otros</a>
+          </div>
+        </li>
+        <li><a href="./acerca.html">Acerca de mí</a></li>
       </ul>
     </nav>
 

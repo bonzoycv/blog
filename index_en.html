@@ -1,85 +1,48 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>No Play Games</title>
-  <!-- Enlace al archivo CSS externo -->
   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <!-- Encabezado de la página -->
   <header>
-    <!-- Logo y nombre del blog -->
     <div id="logo"> <img src="./sources/no_play_logo.webp" alt="_blank">No Play Games</div>
 
-    <!-- Navegación principal -->
     <nav>
       <ul>
-        <li><a href="#articulos">Entries</a></li>
-        <!-- <li><a href="#arte">Art</a></li> -->
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Entries</a>
+          <div class="dropdown-content">
+            <a href="#linux">Linux</a>
+            <a href="#graphic-adventure">Graphic Adventure Development</a>
+            <a href="#others">Others</a>
+          </div>
+        </li>
         <li><a href="./about.html">About me</a></li>
       </ul>
     </nav>
 
-    <!-- Selector de idioma -->
     <div id="language-switch">
       <a href="index.html">ES</a> | <a href="index_en.html">EN</a>
     </div>
   </header>
 
-  <!-- Contenido principal de la página -->
   <main>
-    <!-- Sección de entradas del blog -->
     <section id="blog-entries">
-      <article class="blog-entry">
-        <h2>The Beginning of an Adventure: My Journey Towards Creating a 2D Point & Click Graphic Adventure</h2>
-        <p class="date">September 12, 2024</p>
-        <img src="./sources/ycv.png" alt="Imagen representativa de una aventura gráfica en pixel art"
-          class="blog-entry-image">
-        <p>Today marks the beginning of an exciting personal adventure: creating my own game. As someone with no prior
-          experience in programming or digital art, this project represents an enormous challenge and, at the same time,
-          the realization of a long-postponed dream.</p>
-        <p>Over the past few weeks, I've been working on the heart of the project: the story. The classic LucasArts
-          graphic adventures have always been an inspiration, and now I aim to create an interactive narrative in the
-          purest style of the classic adventures from the 90s, which will be filled with intriguing puzzles and
-          memorable characters.</p>
-        <h3>The Tools That Will Help Me in This Adventure</h3>
-        <p>As a long-time Linux enthusiast (I currently use Fedora 40), it was crucial to find cross-platform tools that
-          would allow me to design and create the game on this operating system. After much research, I decided on the
-          following:</p>
-        <ul>
-          <li><strong>Trello:</strong> To organize and manage project tasks. Being a web-based tool, it works perfectly
-            on any platform.</li>
-          <li><strong>Aseprite:</strong> My choice for creating characters and backgrounds in pixel art, capturing the
-            essence of classic adventures. Fortunately, it has a Linux version.</li>
-          <li><strong>Godot:</strong> The game engine I'll be using, chosen not only for its accessibility and
-            open-source nature but also for its excellent cross-platform support, including Linux.</li>
-        </ul>
-        <p>The choice of these cross-platform tools not only allows me to work comfortably in my preferred Linux
-          environment but also facilitates the eventual distribution of the game across multiple operating systems.</p>
-        <p>For now, my main focus is on learning. I'm immersed in courses and tutorials about these tools, while
-          continuing to develop the story and puzzles that will bring this adventure to life. I'm aware that the road
-          will be long and challenging, but I'm determined to persevere.</p>
-        <p>This blog will be a kind of development diary, a space where I'll share my progress, challenges, and
-          learnings. There's no deadline for completing this project; my goal is to enjoy the process and, with a bit of
-          luck, turn this dream into reality.</p>
-        <p>Who knows? Maybe my experience will inspire others to dust off their own dreams.</p>
-        <p>Let the adventure begin!</p>
-      </article>
-
-      <!-- Segunda entrada - Preparando el entorno de desarrollo: Instalación limpia de Fedora 40 -->
-
-      <article class="blog-entry">
+      <section id="linux" class="blog-entry">
         <h2>Preparing the Development Environment: Clean Installation of Fedora 40</h2>
         <p class="date">September 21, 2024</p>
+        <!-- Content of the Linux entry -->
+
         <p>Before diving into game development, the crucial first step is preparing the desktop environment. I've chosen
           my favorite Linux distribution: Fedora, version 40. This choice is based on several factors:</p>
         <ul>
           <li>It's a mainstream distribution with extensive community support, which facilitates problem-solving.</li>
-          <li>It offers a good balance between stability and innovation, using the latest software versions.</li>
+          <li>It offers a good balance between stability and innovation.</li>
           <li>I have previous experience with Fedora and feel comfortable with it.</li>
           <li>My hardware is highly compatible with this distribution.</li>
         </ul>
@@ -152,24 +115,62 @@ install_dnf
 install_flatpak
 echo "Application installation has finished."
         </code></pre>
-        <p>I hope this information is helpful for those who want to perform a similar process of reinstalling
-          applications on their Linux system. In upcoming entries, I'll share details about the game creation process,
-          including the development of the story and puzzles I'm currently working on. Until next time!</p>
-      </article>
+        <p>I hope this information is useful for those who wish to perform a similar process of
+          reinstalling applications to get their system ready to start using it without delay.</p>
 
 
+      </section>
+
+      <section id="graphic-adventure" class="blog-entry">
+        <h2>The Beginning of an Adventure: My Journey Towards Creating a 2D Point & Click Graphic Adventure</h2>
+        <p class="date">September 12, 2024</p>
+        <img src="./sources/ycv.png" alt="Representative image of a pixel art graphic adventure"
+          class="blog-entry-image">
+        <!-- Content of the graphic adventure development entry -->
+
+        <p>Today marks the beginning of an exciting personal adventure: creating my own game. As someone with no prior
+          experience in programming or digital art, this project represents an enormous challenge and, at the same time,
+          the realization of a long-postponed dream.</p>
+        <p>Over the past few weeks, I've been working on the heart of the project: the story. The classic LucasArts
+          graphic adventures have always been an inspiration, and now I aim to create an interactive narrative in the
+          purest style of the classic adventures from the 90s, which will be filled with intriguing puzzles and
+          memorable characters.</p>
+        <h3>The Tools That Will Help Me in This Adventure</h3>
+        <p>As a long-time Linux enthusiast (I currently use Fedora 40), it was crucial to find cross-platform tools that
+          would allow me to design and create the game on this operating system. After much research, I decided on the
+          following:</p>
+        <ul>
+          <li><strong>Trello:</strong> To organize and manage project tasks. Being a web-based tool, it works perfectly
+            on any platform.</li>
+          <li><strong>Aseprite:</strong> My choice for creating characters and backgrounds in pixel art, capturing the
+            essence of classic adventures. Fortunately, it has a Linux version.</li>
+          <li><strong>Godot:</strong> The game engine I'll be using, chosen not only for its accessibility and
+            open-source nature but also for its excellent cross-platform support, including Linux.</li>
+        </ul>
+        <p>The choice of these cross-platform tools not only allows me to work comfortably in my preferred Linux
+          environment but also facilitates the eventual distribution of the game across multiple operating systems.</p>
+        <p>For now, my main focus is on learning. I'm immersed in courses and tutorials about these tools, while
+          continuing to develop the story and puzzles that will bring this adventure to life. I'm aware that the road
+          will be long and challenging, but I'm determined to persevere.</p>
+        <p>This blog will be a kind of development diary, a space where I'll share my progress, challenges, and
+          learnings. There's no deadline for completing this project; my goal is to enjoy the process and, with a bit of
+          luck, turn this dream into reality.</p>
+        <p>As I am constantly learning about the world of Linux and its distributions, I will post everything I consider
+          relevant as a self-reminder. As you can see, memory is my weak point. Anyway...</p>
+        <p>Who knows? Maybe my experience will inspire others to dust off their own dreams.</p>
+        <p>Let the adventure begin!</p>
 
 
+      </section>
 
-
-      <!-- Aquí se agregarán más entradas dinámicamente -->
+      <section id="others" class="blog-entry">
+        <!-- Here would go other entries that don't fit into the above categories -->
+      </section>
     </section>
 
-    <!-- Botón para cargar más entradas -->
-    <a href="#" class="load-more">More Entries</a>
+    <a href="#" class="load-more">Load more entries</a>
   </main>
 
-  <!-- Pie de página -->
   <footer>
     <p>&copy; 2024 No Play Games Studio. All rights reserved.</p>
   </footer>

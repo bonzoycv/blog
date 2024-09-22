@@ -15,7 +15,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px; /* Altura fija para el header */
+    height: 60px;
 }
 
 /* Estilos del logo */
@@ -27,12 +27,10 @@ header {
 }
 
 #logo img {
-    height: 80px; /* Altura fija para la imagen del logo */
-    width: auto; /* Mantiene la proporción de la imagen */
-    margin-right: 10px; /* Espacio entre la imagen y el texto */
+    height: 80px;
+    width: auto;
+    margin-right: 10px;
 }
-
-/* Resto de los estilos... */
 
 /* Estilos de la navegación */
 nav ul {
@@ -45,6 +43,40 @@ nav ul {
 nav ul li a {
     color: #fff;
     text-decoration: none;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+nav ul li.dropdown > a {
+    color: #fff;
 }
 
 /* Estilos del selector de idioma */
@@ -65,60 +97,6 @@ main {
 }
 
 /* Estilos de las entradas del blog */
-.blog-entry {
-    background-color: #fff;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Estilos del botón "Cargar más entradas" */
-.load-more {
-    display: block;
-    width: 200px;
-    margin: 1rem auto;
-    padding: 0.5rem;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.load-more:hover {
-    background-color: #555;
-}
-
-/* Estilos del pie de página */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333;
-    color: #fff;
-}
-
-
-
-
-
-/* Estilos para la imagen de la entrada del blog */
-.blog-entry-image {
-    display: block;
-    width: 150px; /* Ajusta este valor según el tamaño deseado */
-    height: auto; /* Mantiene la proporción de la imagen */
-    margin: 0 auto 1rem auto; /* Centra la imagen y añade margen inferior */
-}
-
-/* Asegúrate de que el contenedor de la entrada del blog tenga suficiente ancho */
-.blog-entry {
-    max-width: 800px; /* Ajusta según sea necesario */
-    margin: 0 auto;
-    /* ... otros estilos que ya tengas ... */
-}
-
-/* Estilos adicionales para las entradas del blog */
 .blog-entry {
     background-color: #fff;
     padding: 2rem;
@@ -165,9 +143,41 @@ footer {
     border-radius: 4px;
 }
 
+/* Estilos para la imagen de la entrada del blog */
+.blog-entry-image {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 0 auto 1rem auto;
+}
 
+/* Estilos del botón "Cargar más entradas" */
+.load-more {
+    display: block;
+    width: 200px;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
 
-/* seccion about me / acerca de mi */
+.load-more:hover {
+    background-color: #555;
+}
+
+/* Estilos del pie de página */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Estilos para la sección "Acerca de mí" */
 .about-me-section {
     max-width: 800px;
     margin: 0 auto;
@@ -200,7 +210,7 @@ footer {
     text-align: justify;
 }
 
-
+/* Estilos para bloques de código */
 pre {
     white-space: pre-wrap;
     word-wrap: break-word;
