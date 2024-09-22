@@ -38,8 +38,8 @@
                 <p class="date">21 de septiembre, 2024</p>
                 <!-- Contenido de la entrada sobre Linux -->
 
-                <p>Antes de sumergirme en el desarrollo del juego, el primer paso crucial es preparar el entorno de
-                    escritorio. He elegido Fedora, en su versión 40. Esta elección se
+                <p>Antes de sumergirme en el desarrollo del juego, el primer paso es preparar el entorno de
+                    escritorio. He elegido Fedora. Esta elección se
                     basa en varios factores:</p>
                 <ul>
                     <li>Es una distribución mainstream con amplio soporte de la comunidad, lo que facilita la resolución
@@ -49,8 +49,9 @@
                     <li>Mi hardware es altamente compatible con esta distribución.</li>
                 </ul>
                 <p>Para comenzar con una instalación limpia, he desarrollado dos scripts que facilitan el proceso de
-                    respaldo y reinstalación de mis aplicaciones. Aquí está el primer script, que genera una lista de
-                    las aplicaciones instaladas:</p>
+                    respaldo y reinstalación de mis aplicaciones. Aquí está el primer script, que al ejecutarlo genera
+                    una lista de
+                    las aplicaciones instaladas por mi en mi sistema actual:</p>
                 <pre><code>
     #!/bin/bash
     # Nombre del archivo donde se guardarán las aplicaciones
@@ -74,9 +75,10 @@
     
     echo "La lista de aplicaciones instaladas por el usuario ha sido guardada en $ARCHIVO_SALIDA"
                 </code></pre>
-                <p>Después de obtener la lista de aplicaciones, procedo a formatear e instalar Fedora 40 desde cero. Una
-                    vez instalado y actualizado el sistema, ejecuto el segundo script para reinstalar todas las
-                    aplicaciones:</p>
+                <p>Después de obtener la lista de aplicaciones, procedo a formatear y realizar una instalación limpia de
+                    Fedora. Una vez instalado y actualizado el sistema, copio el archivo generado por el primer script
+                    en mi directorio $HOME y ejecuto el segundo script para reinstalar todas las aplicacionesde la
+                    lista:</p>
                 <pre><code>
     #!/bin/bash
     # Nombre del archivo que contiene la lista de aplicaciones
