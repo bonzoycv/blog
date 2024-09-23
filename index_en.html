@@ -15,10 +15,10 @@
     <nav>
       <ul>
         <li class="dropdown">
-          <a href="#" class="dropbtn">Entries</a>
+          <a href="./index_en.html" class="dropbtn">Entries</a>
           <div class="dropdown-content">
-            <a href="#linux">Linux</a>
-            <a href="#graphic-adventure">Graphic Adventure Development</a>
+            <a href="./linux_en.html">Linux</a>
+            <a href="./game-dev_en.html">Graphic Adventure Development</a>
             <a href="#others">Others</a>
           </div>
         </li>
@@ -32,6 +32,76 @@
   </header>
 
   <main>
+
+
+    <!-- Sección Desarrollo de aventura gráfica -->
+    <section id="first-2d-game" class="blog-entry">
+      <h2>My First 2D Game with Godot</h2>
+      <p class="date">April 25, 2024</p>
+      <img src="./sources/img/2d_screenshot.png" alt="Screenshot of my first 2D game in Godot"
+        class="blog-entry-image large">
+      <p>Today I completed my first 2D game following the <a
+          href="https://docs.godotengine.org/en/4.x/getting_started/first_2d_game/index.html" target="_blank"
+          rel="noopener noreferrer">
+          <!-- agregar rel="noopener noreferrer" cuando se usa target="_blank" ayuda a prevenir posibles vulnerabilidades de seguridad y mejora el rendimiento al abrir el nuevo enlace-->
+          tutorial</a>
+        from the official Godot documentation. This achievement, although it may seem small, is very significant to
+        me as it is the first step in the beginning of this long journey towards creating this small but
+        ambitious personal project.</p>
+
+      <h3>Getting Familiar with Godot's Interface</h3>
+      <p>Starting with Godot was an interesting experience. I could say that the interface is quite
+        intuitive and the
+        integrated tools facilitate the learning process. Learning to navigate the Scene Editor,
+        adjust node properties, and manage resources was fundamental to understanding how
+        Godot works and was perhaps the easiest and quickest part to grasp.</p>
+
+      <h3>Introduction to GDScript</h3>
+      <p>One of the most challenging aspects for someone like me with no real knowledge in the area of
+        programming was getting to know GDScript, Godot's scripting language. Its
+        simple syntax and direct integration with the engine make it perfect for beginners.
+        Writing scripts to control character behavior and interactions in the game
+        gave me an essential first contact with programming within Godot. I can't say that
+        I would be able to create a game after doing this tutorial, I don't even think I would be able to
+        replicate what I did when completing this 2D game, but it did give me a broader perspective on how
+        this language works and helped me understand in general terms what could be achieved if I were to
+        master Godot a bit better.
+      </p>
+
+      <h3>Challenges Encountered</h3>
+      <p>Although the tutorial provided clear guidance, it was not without challenges. I encountered difficulties
+        implementing certain functionalities, such as collision detection and input event
+        management. However, each obstacle overcome gave me a deeper understanding of how
+        to solve some of these problems. This official tutorial is an excellent gateway to
+        learn a bit more about Godot.
+      </p>
+
+      <h3>Next Steps</h3>
+      <p>The next objective in my project is to address the implementation of mouse movement within
+        a 2D scene for a point n' click game. This challenge will allow me to create the typical interaction
+        of this type of games, which will be very useful in creating the scenes for the
+        project I'm currently working on.</p>
+
+      <p>Here you can try the final result of the 2D game "Dodge the Creeps!"</p>
+
+
+
+      <div class="iframe-container">
+        <iframe src="./juego2d_tuto/DTC!_juego2D.html" width="600" height="600" style="border: none; max-width: 100%;"
+          loading="lazy">
+          Tu navegador no soporta iframes.
+        </iframe>
+      </div>
+
+    </section>
+
+
+
+
+
+
+
+
     <section id="blog-entries">
       <section id="linux" class="blog-entry">
         <h2>Preparing the Development Environment: Clean Installation of Fedora</h2>
@@ -127,7 +197,7 @@ echo "Application installation has finished."
         <h2>The beginning of an adventure: Creating a 2D Point & Click graphic adventure</h2>
         <p class="date">September 12, 2024</p>
         <img src="./sources/ycv.png" alt="Representative image of a pixel art graphic adventure"
-          class="blog-entry-image">
+          class="blog-entry-image medium">
         <!-- Content of the graphic adventure development entry -->
 
         <p>Today marks the beginning of an exciting personal adventure: creating my own game. As someone with no prior
@@ -166,12 +236,15 @@ echo "Application installation has finished."
 
       </section>
 
+
+
+
       <section id="others" class="blog-entry">
         <!-- Here would go other entries that don't fit into the above categories -->
       </section>
     </section>
 
-    <a href="#" class="load-more">Load more entries</a>
+    <a href="" class="load-more">Load more entries</a>
   </main>
 
   <footer>

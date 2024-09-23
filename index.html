@@ -15,11 +15,11 @@
         <nav>
             <ul>
                 <li class="dropdown">
-                    <a href="#" class="dropbtn">Artículos</a>
+                    <a href="./index.html" class="dropbtn">Artículos</a>
                     <div class="dropdown-content">
-                        <a href="#linux">Linux</a>
-                        <a href="#aventura-grafica">Desarrollo de aventura gráfica</a>
-                        <a href="#otros">Otros</a>
+                        <a href="./linux.html">Linux</a>
+                        <a href="./game-dev.html">Desarrollo de aventura gráfica</a>
+                        <a href="./otros.html">Otros</a>
                     </div>
                 </li>
                 <li><a href="./acerca.html">Acerca de mí</a></li>
@@ -32,8 +32,74 @@
     </header>
 
     <main>
+
+        <!-- Sección Desarrollo de aventura gráfica -->
+        <section id="primer-juego-2d" class="blog-entry">
+            <h2>Mi primer juego 2D con Godot</h2>
+            <p class="date">25 de abril, 2024</p>
+            <img src="./sources/img/2d_screenshot.png" alt="Captura de pantalla de mi primer juego 2D en Godot"
+                class="blog-entry-image large">
+            <p>Hoy he completado mi primer juego 2D siguiendo el<a
+                    href="https://docs.godotengine.org/es/4.x/getting_started/first_2d_game/index.html" target="_blank"
+                    rel="noopener noreferrer">
+                    <!-- agregar rel="noopener noreferrer" cuando se usa target="_blank" ayuda a prevenir posibles vulnerabilidades de seguridad y mejora el rendimiento al abrir el nuevo enlace -->
+                    tutorial</a>
+                de la documentación oficial de Godot. Este logro, aunque parezca pequeño, es muy significativo para
+                mi ya que es el primer paso en el comienzo de este largo viaje hacia la creación de este pequeño pero
+                ambicioso proyecto personal.</p>
+
+            <h3>Familiarizándome con la interfaz de Godot</h3>
+            <p>Comenzar con Godot fue una experiencia interesante. Podría decir que la interfaz es bastante
+                intuitiva y
+                las herramientas
+                integradas facilitan el proceso de aprendizaje. Aprender a navegar por el Editor de Escenas,
+                ajustar las propiedades de los nodos y gestionar los recursos fue fundamental para entender cómo
+                funciona Godot y quizás fue la parte más sencilla y rápida de comprender.</p>
+
+            <h3>Introducción a GDScript</h3>
+            <p>Uno de los aspectos más complicados para alguien como yo sin ningún tipo de conocimiento real en el área
+                de
+                la programación, fue conocer GDScript, el lenguaje de scripting de Godot. Su
+                sintaxis sencilla y su integración directa con el motor lo hacen perfecto para principiantes.
+                Escribir scripts para controlar el comportamiento de los personajes y las interacciones en el juego
+                me dio una primera toma de contacto esencial con la programación dentro de Godot. No puedo decir que
+                sería capaz de crear un juego después de hacer este tutorial, ni siquiera creo que sería capaz de
+                replicar lo que hice al completar este juego 2d, pero si me dio una perspectiva más amplia de como
+                funciona este lenguaje y me ayudó comprender en líneas generales lo que se podría lograr si llegara a
+                dominar
+                un poco mejor Godot.
+            </p>
+
+            <h3>Desafíos encontrados</h3>
+            <p>Aunque el tutorial proporcionó una guía clara, no estuvo exento de desafíos. Encontré dificultades al
+                implementar ciertas funcionalidades, como la detección de colisiones y la gestión de eventos de
+                entrada. Sin embargo, cada obstáculo superado me brindó una comprensión más profunda de cómo
+                solucionar algunos de estos problemas. Este tutorial oficial es una excelente puerta de entrada para
+                conocer un poco más Godot.
+            </p>
+
+
+            <h3>Próximos pasos</h3>
+            <p>El siguiente objetivo en mi proyecto es abordar la implementación del movimiento con el mouse dentro
+                de una escena 2D para un juego point n' click. Este desafío me permitirá crear la interacción típica
+                de este tipo de juegos, lo cual será de mucha utilidad en la creación de las escenas para el
+                proyecto en el que trabajo actualmente</p>
+
+            <p>Aquí puedes probar el resultado final del juego 2d "Dodge the Creeps!"</p>
+
+
+            <div class="iframe-container">
+                <iframe src="./juego2d_tuto/DTC!_juego2D.html" width="600" height="600"
+                    style="border: none; max-width: 100%;" loading="lazy">
+                    Tu navegador no soporta iframes.
+                </iframe>
+            </div>
+
+        </section>
+
+
         <section id="blog-entries">
-            <section id="linux" class="blog-entry">
+            <section id="instalacion-fedora" class="blog-entry">
                 <h2>Preparando el entorno de desarrollo: Instalación limpia de Fedora</h2>
                 <p class="date">21 de septiembre, 2024</p>
                 <!-- Contenido de la entrada sobre Linux -->
@@ -77,7 +143,7 @@
                 </code></pre>
                 <p>Después de obtener la lista de aplicaciones, procedo a formatear y realizar una instalación limpia de
                     Fedora. Una vez instalado y actualizado el sistema, copio el archivo generado por el primer script
-                    en mi directorio $HOME y ejecuto el segundo script para reinstalar todas las aplicacionesde la
+                    en mi directorio $HOME y ejecuto el segundo script para reinstalar todas las aplicaciones de la
                     lista:</p>
                 <pre><code>
     #!/bin/bash
@@ -130,10 +196,10 @@
             </section>
 
             <section id="aventura-grafica" class="blog-entry">
-                <h2>El inicio de una aventura: Creando una aventura gráfica 2D Point & Click</h2>
+                <h2>Creando una aventura gráfica 2D Point & Click</h2>
                 <p class="date">12 de septiembre, 2024</p>
                 <img src="./sources/ycv.png" alt="Imagen representativa de una aventura gráfica en pixel art"
-                    class="blog-entry-image">
+                    class="blog-entry-image medium">
                 <!-- Contenido de la entrada sobre desarrollo de aventura gráfica -->
 
                 <p>Hoy marco el inicio de una emocionante aventura personal: la creación de mi propio juego. Como
@@ -175,17 +241,24 @@
 
             </section>
 
+
+
+
             <section id="otros" class="blog-entry">
                 <!-- Aquí irían otras entradas que no se ajusten a las categorías anteriores -->
+
+
+
             </section>
         </section>
 
-        <a href="#" class="load-more">Cargar más entradas</a>
+        <!-- <a href="" class="load-more">Cargar más entradas</a> -->
     </main>
 
     <footer>
         <p>&copy; 2024 No Play Games Studio. Todos los derechos reservados.</p>
     </footer>
+
 </body>
 
 </html>

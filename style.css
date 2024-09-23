@@ -1,37 +1,38 @@
-/* Resetear márgenes y padding */
+/* Resetear márgenes, padding y establecer box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Asegurarse de que el body y el html ocupen toda la altura de la ventana */
+/* Asegurar que html y body ocupen toda la altura y ancho */
 html, body {
     height: 100%;
     width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-/* Estilos generales */
-body {
-    display: flex;
-    flex-direction: column;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #333;
+    /* scroll-behavior: smooth; */
+    scroll-behavior: auto;
+    overflow-x: hidden;
+}
+
+/* Estilo del cuerpo usando flexbox para distribuir el espacio verticalmente */
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Estilos del encabezado */
 header {
     background-color: #333;
     color: #fff;
-    padding: 1rem;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
     width: 100%;
+    flex-shrink: 0;
 }
 
 /* Estilos del logo */
@@ -43,7 +44,7 @@ header {
 }
 
 #logo img {
-    height: 80px;
+    height: 40px; /* Ajustado para evitar desbordamiento */
     width: auto;
     margin-right: 10px;
 }
@@ -51,7 +52,6 @@ header {
 /* Estilos de la navegación */
 nav ul {
     list-style-type: none;
-    padding: 0;
     display: flex;
     gap: 1rem;
 }
@@ -59,6 +59,12 @@ nav ul {
 nav ul li a {
     color: #fff;
     text-decoration: none;
+    padding: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #555;
 }
 
 /* Estilos para el menú desplegable */
@@ -71,8 +77,8 @@ nav ul li a {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
@@ -81,6 +87,7 @@ nav ul li a {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    transition: background-color 0.3s;
 }
 
 .dropdown-content a:hover {
@@ -91,6 +98,7 @@ nav ul li a {
     display: block;
 }
 
+/* Ajuste para el color del texto en el menú desplegable */
 nav ul li.dropdown > a {
     color: #fff;
 }
@@ -99,6 +107,8 @@ nav ul li.dropdown > a {
 #language-switch a {
     color: #fff;
     text-decoration: none;
+    margin: 0 0.5rem;
+    transition: text-decoration 0.3s;
 }
 
 #language-switch a:hover {
@@ -107,11 +117,11 @@ nav ul li.dropdown > a {
 
 /* Estilos del contenido principal */
 main {
-    flex: 1 0 auto;
+    flex: 1;
     padding: 2rem;
     max-width: 800px;
-    width: 100%;
     margin: 0 auto;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -144,6 +154,7 @@ main {
 .blog-entry p {
     line-height: 1.6;
     margin-bottom: 1rem;
+    text-align: justify;
 }
 
 .blog-entry ul {
@@ -155,19 +166,39 @@ main {
     margin-bottom: 0.5rem;
 }
 
-.blog-entry img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-}
+
 
 /* Estilos para la imagen de la entrada del blog */
 .blog-entry-image {
     display: block;
-    width: 150px;
+    width: 100%;
     height: auto;
     margin: 0 auto 1rem auto;
+    border-radius: 4px;
+}
+
+.blog-entry-image,
+.about-me-section img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 1rem auto;
+    border-radius: 4px;
+}
+
+.blog-entry-image.small,
+.about-me-section img.small {
+    width: 150px;
+}
+
+.blog-entry-image.medium,
+.about-me-section img.medium {
+    width: 300px;
+}
+
+.blog-entry-image.large,
+.about-me-section img.large {
+    width: 650px;
 }
 
 /* Estilos del botón "Cargar más entradas" */
@@ -192,7 +223,7 @@ main {
 footer {
     flex-shrink: 0;
     text-align: center;
-    padding: 1rem;
+    padding: 1rem 2rem;
     background-color: #333;
     color: #fff;
     width: 100%;
@@ -248,4 +279,35 @@ code {
     font-family: monospace;
     font-size: 14px;
     line-height: 1.4;
+}
+
+
+
+/* seccion de lista de art. linux */
+
+#linux-entries ul li {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: justify;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+
+.iframe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 600px; /* Ajusta según sea necesario */
+    overflow: hidden;
+}
+
+.iframe-container iframe {
+    width: 400px;
+    height: 600px;
+    max-width: 100%;
+    border: none;
+    transform: scale(0.95); /* Ajusta este valor si es necesario */
+    transform-origin: center;
 }
