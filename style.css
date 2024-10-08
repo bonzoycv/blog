@@ -44,7 +44,7 @@ header {
 }
 
 #logo img {
-    height: 40px; /* Ajustado para evitar desbordamiento */
+    height: 70px; /* Ajustado para evitar desbordamiento */
     width: auto;
     margin-right: 10px;
 }
@@ -310,4 +310,21 @@ code {
     border: none;
     transform: scale(0.95); /* Ajusta este valor si es necesario */
     transform-origin: center;
+}
+
+
+
+/* configuración de videos en las entradas del blog */
+
+.video-container {
+    width: 100%;
+    max-width: 800px; /* Ajusta este valor según el ancho máximo que desees */
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.video-container video {
+    display: block;
+    width: 100%;
+    height: auto;
 }

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Play Games</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <header>
+    <div id="logo"> <a href="/index.html"><img src="../sources/no_play_logo.webp" alt="_blank"></a>No Play Games</div>
+
+    <nav>
+      <ul>
+        <li class="dropdown">
+          <a href="./index.html" class="dropbtn">Artículos</a>
+          <div class="dropdown-content">
+            <a href="../linux.html">Linux</a>
+            <a href="../game-dev.html">Desarrollo de aventura gráfica</a>
+            <a href="../otros.html">Otros</a>
+          </div>
+        </li>
+        <li><a href="../acerca.html">Acerca de mí</a></li>
+      </ul>
+    </nav>
+
+    <div id="language-switch">
+      <a href="index.html">ES</a> | <a href="index_en.html">EN</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Sección Desarrollo de aventura gráfica -->
+
+
+    <section id="blog-entries">
+      <section id="instalacion-fedora" class="blog-entry">
+        <h2>Reinstalando aplicaciones en Fedora</h2>
+        <p class="date">21 de septiembre, 2024</p>
+        <!-- Contenido de la entrada sobre Linux -->
+
+        <p>Antes de comenzar el desarrollo del juego, el primer paso fue preparar el entorno de
+          escritorio. He elegido Fedora. Esta elección se
+          basa en varios factores:</p>
+        <ul>
+          <li>Es una distribución mainstream con amplio soporte de la comunidad, lo que facilita la resolución
+            de problemas.</li>
+          <li>Ofrece un buen equilibrio entre estabilidad e innovación.</li>
+          <li>Tengo experiencia previa con Fedora y me siento cómodo con ella.</li>
+          <li>Mi hardware es altamente compatible con esta distribución.</li>
+        </ul>
+        <p>Para comenzar con una instalación limpia, he desarrollado dos scripts que facilitan el proceso de
+          respaldo y reinstalación de mis aplicaciones. Aquí está el primer script, que al ejecutarlo genera
+          una lista de
+          las aplicaciones instaladas por el usuario:</p>
+        <pre><code>
+    #!/bin/bash
+    # Nombre del archivo donde se guardarán las aplicaciones
+    ARCHIVO_SALIDA="aplicaciones.txt"
+    
+    # Función para obtener aplicaciones instaladas por el usuario via DNF
+    obtener_apps_dnf() {
+        echo "Aplicaciones instaladas por el usuario (DNF):" > "$ARCHIVO_SALIDA"
+        dnf repoquery --userinstalled --queryformat '%{NAME}' | sort | uniq >> "$ARCHIVO_SALIDA"
+    }
+    
+    # Función para obtener aplicaciones instaladas por Flatpak
+    obtener_apps_flatpak() {
+        echo -e "\nAplicaciones instaladas por Flatpak:" >> "$ARCHIVO_SALIDA"
+        flatpak list --app --columns=application | sort >> "$ARCHIVO_SALIDA"
+    }
+    
+    # Ejecuta las funciones para obtener la lista de aplicaciones
+    obtener_apps_dnf
+    obtener_apps_flatpak
+    
+    echo "La lista de aplicaciones instaladas por el usuario ha sido guardada en $ARCHIVO_SALIDA"
+                </code></pre>
+        <p>Después de obtener la lista de aplicaciones, procedo a formatear y realizar una instalación limpia de
+          Fedora. Una vez instalado y actualizado el sistema, copio el archivo generado por el primer script
+          en mi directorio $HOME y ejecuto el segundo script para reinstalar todas las aplicaciones de la
+          lista:</p>
+
+
+        <!-- Sección del código -->
+
+        <pre><code>
+    #!/bin/bash
+    # Nombre del archivo que contiene la lista de aplicaciones
+    ARCHIVO_ENTRADA="aplicaciones.txt"
+    
+    # Función para instalar aplicaciones DNF
+    instalar_dnf() {
+        echo "Instalando aplicaciones DNF..."
+        APPS_DNF=$(sed -n '/DNF:/,/Flatpak:/p' "$ARCHIVO_ENTRADA" | 
+                   grep -v "DNF:" | grep -v "Flatpak:" | tr '\n' ' ')
+        if [ -n "$APPS_DNF" ]; then
+            sudo dnf install -y $APPS_DNF
+        else
+            echo "No se encontraron aplicaciones DNF para instalar."
+        fi
+    }
+    
+    # Función para instalar aplicaciones Flatpak
+    instalar_flatpak() {
+        echo "Instalando aplicaciones Flatpak..."
+        APPS_FLATPAK=$(sed -n '/Flatpak:/,$ p' "$ARCHIVO_ENTRADA" | 
+                       grep -v "Flatpak:" | tr '\n' ' ')
+        if [ -n "$APPS_FLATPAK" ]; then
+            for app in $APPS_FLATPAK; do
+                flatpak install -y flathub $app
+            done
+        else
+            echo "No se encontraron aplicaciones Flatpak para instalar."
+        fi
+    }
+    
+    # Verifica si el archivo de entrada existe
+    if [ ! -f "$ARCHIVO_ENTRADA" ]; then
+        echo "El archivo $ARCHIVO_ENTRADA no existe. Por favor, ejecuta primero el script de listado de aplicaciones."
+        exit 1
+    fi
+    
+    # Ejecuta las funciones de instalación
+    instalar_dnf
+    instalar_flatpak
+    echo "La instalación de aplicaciones ha terminado."
+                </code></pre>
+
+
+
+
+        <p>Espero que esta información sea útil para aquellos que deseen realizar un proceso similar de
+          reinstalación de aplicaciones para dejar el sistema a punto para comenzar a utilizarlo de inmediato.
+        </p>
+
+
+
+
+        <!-- <section id="otros" class="blog-entry"> -->
+        <!-- Aquí irían otras entradas que no se ajusten a las categorías anteriores -->
+
+
+
+        <!-- </section> -->
+
+
+        <!-- <a href="" class="load-more">Cargar más entradas</a> -->
+  </main>
+
+  <footer>
+    <p>&copy; 2024 No Play Games Studio. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+
+</html>

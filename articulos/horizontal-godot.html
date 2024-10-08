@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Play Games</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <header>
+    <div id="logo"> <a href="/index.html"><img src="../sources/no_play_logo.webp" alt="_blank"></a>No Play Games
+    </div>
+
+    <nav>
+      <ul>
+        <li class="dropdown">
+          <a href="./index.html" class="dropbtn">Artículos</a>
+          <div class="dropdown-content">
+            <a href="./linux.html">Linux</a>
+            <a href="./game-dev.html">Aventura Gráfica</a>
+            <a href="./otros.html">Otros</a>
+          </div>
+        </li>
+        <li><a href="./acerca.html">Acerca de mí</a></li>
+      </ul>
+    </nav>
+
+    <div id="language-switch">
+      <a href="index.html">ES</a> | <a href="index_en.html">EN</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Sección Desarrollo de aventura gráfica -->
+
+
+
+    <div id="dia-25-movimiento" class="section blog-entry">
+      <h2>Día 26: Movimiento Horizontal</h2>
+      <p class="date">6 de octubre, 2024</p>
+
+      <div class="video-container">
+        <video width="100%" controls>
+          <source src="../sources/videos/mov_horizontal-2024-09-29.mp4" type="video/mp4">
+          Tu navegador no soporta el tag de video.
+        </video>
+      </div>
+
+      <p>Finalmente después de semanas de frustración y momentos de querer dejarlo, por fin
+        conseguí que mi personaje se moviera horizontalmente con un simple click del mouse. Sé que para muchos
+        esto puede parecer algo trivial, pero para mí, es un hito enorme en mi aprendizaje con Godot,
+        en especial porque aunque hay muchos tutoriales y guías de Godot online, muy pocas tratan el tema del
+        movimiento a través de un simple click con el botón izquierdo del mouse.</p>
+
+      <p>El objetivo parecía simple: hacer que el personaje camine hacia donde el jugador haga click. Pero, si hay
+        algo que he aprendido en estas pocas semanas en el desarrollo de juegos con Godot, es que lo que parece
+        fácil en teoría
+        puede ser un verdadero dolor de cabeza en la práctica.</p>
+
+      <h3>El Proceso</h3>
+      <ol>
+        <li>Primero, tuve que leer y buscar sobre como generar movimientos en un personaje, para esto estuve
+          leyendo principalmente la documentación de Godot sobre el sistema de eventos de entrada. El
+          'InputEvent', pero también vi centenares de videos en youtube que me ayudaron a entender como podría
+          llegar a lograr este movimiento.</li>
+        <li>Luego vino el desafío de calcular la dirección del movimiento del personaje. Un problema que me
+          costó muchísimo
+          resolver fue como limitar el movimiento del personaje a un área específica de la escena.</li>
+        <li>Finalmente, lograr que el movimiento se sintiera suave y natural. Nada de teletransportaciones
+          bruscas o movimientos robóticos. Todos los sprites y fondos que utilicé son gratuitos y los tomé de
+          itch.io.
+        </li>
+      </ol>
+
+      <p>Después de incontables intentos, errores y depuraciones, este es el código que finalmente funcionó, un
+        código sencillo, quizás más adelante pueda mejorarlo, pero por ahora estoy satisfecho con el resultado.
+      </p>
+
+      <pre><code>
+  extends CharacterBody2D
+  
+  # player_Main.gd
+  # Este script controla el comportamiento del jugador en la escena principal (main)
+  
+  # Variables para el movimiento y control del jugador
+  var speed = 130  # Velocidad de movimiento del jugador en píxeles por segundo
+  var target_x = 0  # Posición X objetivo a la que el jugador se moverá
+  var moving = false  # Indica si el jugador está en movimiento o no
+  
+  # Constantes y variables para los límites de la escena
+  const SCENE_WIDTH = 1158  # Ancho de la escena en píxeles (ajustar si es necesario)
+  var left_limit: float  # Límite izquierdo para el movimiento del jugador
+  var right_limit: float  # Límite derecho para el movimiento del jugador
+  
+  # Constante para el cambio de escena
+  const SCENE_CHANGE_THRESHOLD = 5  # Distancia del borde para activar el cambio de escena
+  
+  # Referencia al nodo AnimatedSprite2D hijo
+  @onready var animated_sprite = $AnimatedSprite2D
+  
+  func _ready():
+      setup_player_limits()
+      
+      var global_state = get_node("/root/GlobalState")
+      if global_state.previous_scene == "scene2":
+          position_player_from_right()
+      else:
+          global_position.x = clamp(global_position.x, left_limit, right_limit)
+      
+      global_state.set_previous_scene("main")
+      print("Posición inicial del jugador:", global_position)
+  
+  func setup_player_limits():
+      # Configura los límites de movimiento basados en el tamaño del sprite del jugador
+      if animated_sprite and animated_sprite.sprite_frames:
+          var texture = animated_sprite.sprite_frames.get_frame_texture("Idle", 0)
+          if texture:
+              var sprite_width = texture.get_width() * animated_sprite.scale.x
+              left_limit = sprite_width / 2
+              right_limit = SCENE_WIDTH - sprite_width / 2
+              print("Límites de movimiento: Izquierdo =", left_limit, ", Derecho =", right_limit)
+          else:
+              push_error("No se pudo obtener la textura del sprite del jugador.")
+      else:
+          push_error("AnimatedSprite2D no está configurado correctamente.")
+  
+  func position_player_from_right():
+      # Posiciona al jugador en el borde derecho mirando hacia la izquierda
+      global_position.x = right_limit
+      animated_sprite.flip_h = true
+      print("Jugador posicionado desde la derecha")
+  
+  func _unhandled_input(event):
+      # Maneja el input del ratón para mover al jugador
+      if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+          target_x = clamp(get_global_mouse_position().x, left_limit, right_limit)
+          moving = true
+          print("Nuevo objetivo de movimiento:", target_x)
+  
+  func _physics_process(_delta):
+      if moving:
+          var direction = sign(target_x - global_position.x)
+          if abs(global_position.x - target_x) > 5:
+              # Mueve al jugador hacia el objetivo
+              velocity.x = direction * speed
+              animated_sprite.play("Walk")
+              animated_sprite.flip_h = direction < 0
+          else:
+              # El jugador ha llegado al objetivo
+              velocity.x = 0
+              moving = false
+              animated_sprite.play("Idle")
+              check_scene_change()  # Verifica si debe cambiar de escena
+      else:
+          velocity.x = 0
+          animated_sprite.play("Idle")
+      
+      # Aplica el movimiento y maneja posibles errores
+      var collision = move_and_slide()
+      if collision == null:
+          push_warning("Posible problema con move_and_slide(). Verifica la configuración del CharacterBody2D.")
+      
+      # Restringe la posición del jugador a los límites de la escena
+      global_position.x = clamp(global_position.x, left_limit, right_limit)
+      print("Posición actual del jugador:", global_position)
+  
+  func check_scene_change():
+      # Verifica si el jugador está en una posición que requiere cambio de escena
+      if global_position.x >= right_limit - SCENE_CHANGE_THRESHOLD:
+          change_scene("res://Scenes/scene2.tscn")
+  
+  func change_scene(scene_path: String):
+      # Cambia a la escena especificada
+      print("Cambiando a la escena:", scene_path)
+      get_node("/root/GlobalState").set_previous_scene("main")
+      var error = get_tree().change_scene_to_file(scene_path)
+      if error != OK:
+          push_error("No se pudo cambiar a la escena: " + scene_path)
+  
+  # IMPORTANTE: debo asegurarme de que la escena scene2.tscn exista y esté configurada correctamente.
+  # El nodo Player en esa escena debe tener su propio script (player_Scene2.gd) adjunto.
+  # este codigo se puede reutilizar para las escenas 2 y 3 realizando los cambios necesarios para que tenga coherencia
+      </code></pre>
+
+      <p>Este pequeño logro me ha enseñado a entender los fundamentos de GDScript, y espero poder entender mejor
+        este lenguaje para poder escribir mas y mejor codigo en Godot.
+        La satisfacción de ver tu código funcionando sirve de gran motivación para seguir adelante.
+        Ahora debo poner lo aprendido en práctica o terminaré olvidándolo más pronto que tarde como me suele
+        ocurrir cada vez que aprendo algo nuevo, pero no lo utilizo por un tiempo, cuando deseo retomarlo debo
+        comenzar desde cero, intentaré que esta vez ese no sea el caso.</p>
+
+      <h3>Próximos Pasos</h3>
+      <p>Ahora que tengo el movimiento básico, me he dado cuenta de que hay mucho por hacer, por ejemplo se me
+        vienen 2 tareas a la mente:</p>
+      <ul>
+        <li>Añadir detección de obstáculos para que no atraviese paredes.</li>
+        <li>Crear un sistema de interacción con objetos del escenario.</li>
+      </ul>
+
+      <p>Este es solo el comienzo de mi aventura point and click. Sé que habrá más desafíos por delante, pero por
+        ahora, me tomaré un momento para celebrar esta pequeña victoria.</p>
+    </div>
+
+
+
+
+
+    <!-- <section id="otros" class="blog-entry"> -->
+    <!-- Aquí irían otras entradas que no se ajusten a las categorías anteriores -->
+
+
+
+    <!-- </section> -->
+
+
+    <!-- <a href="" class="load-more">Cargar más entradas</a> -->
+  </main>
+
+  <footer>
+    <p>&copy; 2024 No Play Games Studio. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+
+</html>

@@ -4,63 +4,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>No Play Games</title>
-  <!-- Enlace al archivo CSS externo -->
+  <title>No Play Games - Linux</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <!-- Encabezado de la página -->
   <header>
-    <!-- Logo y nombre del blog -->
-    <div id="logo"> <img src="./sources/no_play_logo.webp" alt="_blank">No Play Games</div>
-
-    <!-- Navegación principal -->
+    <div id="logo"> <a href="/index.html"><img src="../sources/no_play_logo.webp" alt="_blank"></a>No Play Games</div>
     <nav>
       <ul>
         <li class="dropdown">
-          <a href="./index.html" class="dropbtn">Artículos</a>
+          <a href="/articulos/index.html" class="dropbtn">Artículos</a>
           <div class="dropdown-content">
-            <!-- Modificamos los enlaces para que dirijan a las secciones correspondientes en index.html -->
             <a href="./linux.html">Linux</a>
-            <a href="./game-dev.html">Desarrollo de aventura gráfica</a>
+            <a href="./game-dev.html">Aventura Gráfica</a>
             <a href="./otros.html">Otros</a>
           </div>
         </li>
         <li><a href="./acerca.html">Acerca de mí</a></li>
       </ul>
     </nav>
-
-    <!-- Selector de idioma -->
     <div id="language-switch">
-      <a href="index.html">ES</a> | <a href="index_en.html">EN</a>
+      <a href="linux.html">ES</a> | <a href="linux_en.html">EN</a>
     </div>
   </header>
 
-
-
-
-
-  <!-- Lista de entradas sobre Linux -->
   <main>
-    <section id="linux-entries" class="#">
-      <ul>
-        <li><a href="./index.html#instalacion-fedora">
-            <h2>Instalación limpia de Fedora</h2>
-          </a></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </section>
+    <h1>Linux</h1>
+
+    <ul class="article-list">
+      <li>
+        <a href="#">(TEST)Vim y Tabulaciones</a>
+        <span class="date">8 ABR 2022</span>
+        <p>Una guía ilustrada sobre los fundamentos de la configuración de tabulaciones en Vim.</p>
+      </li>
+      <li>
+        <a href="#">(TEST)Sobre la Elegancia y Simplicidad de la Página Web</a>
+        <span class="date">29 JUN 2021</span>
+        <p>¿Te preguntas por qué mi sitio web es tan simple como es? Exploro mis pensamientos al respecto.</p>
+      </li>
+      <li>
+        <a href="/articulos/reinstalando-fedora.html">Reinstalando apps en Fedora</a>
+        <span class="date">21 SEPT 2024</span>
+        <p>Dos scripts que facilitan el proceso de respaldo y reinstalación de aplicaciones.</p>
+      </li>
+
+
+    </ul>
   </main>
-
-
-
-
-  <!-- Pie de página -->
   <footer>
     <p>&copy; 2024 No Play Games Studio. Todos los derechos reservados.</p>
   </footer>
