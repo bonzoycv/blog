@@ -44,7 +44,7 @@ header {
 }
 
 #logo img {
-    height: 70px; /* Ajustado para evitar desbordamiento */
+    height: 50px; /* Ajustado para evitar desbordamiento */
     width: auto;
     margin-right: 10px;
 }

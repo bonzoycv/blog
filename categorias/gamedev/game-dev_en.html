@@ -6,57 +6,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>No Play Games</title>
 
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
   <header>
 
-    <div id="logo"> <img src="./sources/no_play_logo.webp" alt="_blank">No Play Games</div>
+    <div id="logo"> <a href="/index_en.html"><img src="/sources/no_play_logo.webp" alt="_blank"></a>No Play Games</div>
 
 
     <nav>
       <ul>
         <li class="dropdown">
-          <a href="./index_en.html" class="dropbtn">Articles</a>
+          <a href="/articles/index_en.html" class="dropbtn">Articles</a>
           <div class="dropdown-content">
 
-            <a href="./linux_en.html">Linux</a>
-            <a href="./game-dev_en.html">Graphic Adventure Development</a>
-            <a href="./otros_en.html">Others</a>
+            <a href="/categorias/linux/linux_en.html">Linux</a>
+            <a href="/categorias/gamedev/game-dev_en.html">Graphic Adventure Development</a>
+            <a href="/categorias/otros/others.html">Others</a>
           </div>
         </li>
-        <li><a href="./about.html">About Me</a></li>
+        <li><a href="/categorias/about/about.html">About Me</a></li>
       </ul>
     </nav>
 
 
     <div id="language-switch">
-      <a href="index.html">ES</a> | <a href="index_en.html">EN</a>
+      <a href="/categorias/gamedev/game-dev.html">ES</a> | <a href="#">EN</a>
     </div>
   </header>
 
 
 
-
-
+  <!-- lista de temas en esta sección -->
 
   <main>
-    <section id="linux-entries" class="#">
-      <ul>
-        <li><a href="./index_en.html#graphic-adventure">
-            <h2>Creating a 2D Point & Click Graphic Adventure</h2>
-          </a></li>
-        <li><a href="./index_en.html#first-2d-game">
-            <h2>My First 2D Game with Godot</h2>
-          </a></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </section>
+    <h1>Graphic Adventure</h1>
+
+    <ul class="article-list">
+      <li>
+        <a href="/articles/characterBody2D-movement.html">CharacterBody2D: Horizontal Movement</a>
+        <span class="date">OCT 6 2024</span>
+        <p>How to make the character walk horizontally with a left mouse click.</p>
+      </li>
+      <li>
+        <a href="/articles/my-first-2d-game.html">My First 2D Game</a>
+        <span class="date">SEPT 23 2024</span>
+        <p>A mini-article on how to get the most out of grep from Vim.</p>
+      </li>
+      <li>
+        <a href="/articles/a-point-&-click-game.html">Creating a Point & Click Game</a>
+        <span class="date">SEP 12 2024</span>
+        <p>Today I begin a personal adventure: creating a video game.</p>
+      </li>
+    </ul>
   </main>
 
 

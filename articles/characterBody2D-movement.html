@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Play Games</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <header>
+    <div id="logo"> <a href="/index_en.html"><img src="../sources/no_play_logo.webp" alt="_blank"></a>No Play Games
+    </div>
+
+    <nav>
+      <ul>
+        <li class="dropdown">
+          <a href="/articulos/index.html" class="dropbtn">Articles</a>
+          <div class="dropdown-content">
+            <a href="/categorias/linux/linux_en.html">Linux</a>
+            <a href="/categorias/gamedev/game-dev_en.html">Graphic Adventure</a>
+            <a href="/categorias/otros/others.html">Others</a>
+          </div>
+        </li>
+        <li><a href="/categorias/about/about.html">About me</a></li>
+      </ul>
+    </nav>
+
+    <div id="language-switch">
+      <a href="/articulos/characterBody2D-movimiento.html">ES</a> | <a href="#">EN</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Graphic Adventure Development Section -->
+
+    <div id="day-25-movement" class="section blog-entry">
+      <h2>CharacterBody2D: Horizontal Movement</h2>
+      <p class="date">October 6, 2024</p>
+
+      <div class="video-container">
+        <video width="100%" controls>
+          <source src="../sources/videos/mov_horizontal-2024-09-29.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <p>Finally, after weeks of frustration and moments of wanting to give up, I've managed to get my character to move
+        horizontally with a simple mouse click. I know this might seem trivial to many, but for me, it's a huge
+        milestone in my learning journey with Godot, especially because although there are many Godot tutorials and
+        guides online, very few deal with the topic of movement through a simple left mouse button click.</p>
+
+      <p>The objective seemed simple: make the character walk towards where the player clicks. But if there's one thing
+        I've learned in these few weeks of game development with Godot, it's that what seems easy in theory can be a
+        real headache in practice.</p>
+
+      <h3>The Process</h3>
+      <ol>
+        <li>First, I had to read and research how to generate movements in a character. For this, I was mainly reading
+          Godot's documentation on the input event system. The 'InputEvent', but I also watched countless YouTube videos
+          that helped me understand how I could achieve this movement.</li>
+        <li>Then came the challenge of calculating the direction of the character's movement. A problem that took me a
+          lot of effort to solve was how to limit the character's movement to a specific area of the scene.</li>
+        <li>Finally, making the movement feel smooth and natural. No abrupt teleportations or robotic movements. All the
+          sprites and backgrounds I used are free and I took them from itch.io.</li>
+      </ol>
+
+      <p>After countless attempts, errors, and debugging, this is the code that finally worked, a simple code, maybe
+        later I can improve it, but for now I'm satisfied with the result.</p>
+
+      <pre><code>
+        extends CharacterBody2D
+        
+        # player_Main.gd
+        # This script controls the player's behavior in the main scene
+        
+        # Variables for player movement and control
+        var speed = 130  # Player movement speed in pixels per second
+        var target_x = 0  # Target X position to which the player will move
+        var moving = false  # Indicates whether the player is moving or not
+        
+        # Constants and variables for scene boundaries
+        const SCENE_WIDTH = 1158  # Scene width in pixels (adjust if necessary)
+        var left_limit: float  # Left limit for player movement
+        var right_limit: float  # Right limit for player movement
+        
+        # Constant for scene change
+        const SCENE_CHANGE_THRESHOLD = 5  # Distance from edge to trigger scene change
+        
+        # Reference to the child AnimatedSprite2D node
+        @onready var animated_sprite = $AnimatedSprite2D
+        
+        func _ready():
+            setup_player_limits()
+            
+            var global_state = get_node("/root/GlobalState")
+            if global_state.previous_scene == "scene2":
+                position_player_from_right()
+            else:
+                global_position.x = clamp(global_position.x, left_limit, right_limit)
+            
+            global_state.set_previous_scene("main")
+            print("Initial player position:", global_position)
+        
+        func setup_player_limits():
+            # Set up movement limits based on player sprite size
+            if animated_sprite and animated_sprite.sprite_frames:
+                var texture = animated_sprite.sprite_frames.get_frame_texture("Idle", 0)
+                if texture:
+                    var sprite_width = texture.get_width() * animated_sprite.scale.x
+                    left_limit = sprite_width / 2
+                    right_limit = SCENE_WIDTH - sprite_width / 2
+                    print("Movement limits: Left =", left_limit, ", Right =", right_limit)
+                else:
+                    push_error("Could not get player sprite texture.")
+            else:
+                push_error("AnimatedSprite2D is not set up correctly.")
+        
+        func position_player_from_right():
+            # Position the player on the right edge facing left
+            global_position.x = right_limit
+            animated_sprite.flip_h = true
+            print("Player positioned from the right")
+        
+        func _unhandled_input(event):
+            # Handle mouse input to move the player
+            if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+                target_x = clamp(get_global_mouse_position().x, left_limit, right_limit)
+                moving = true
+                print("New movement target:", target_x)
+        
+        func _physics_process(_delta):
+            if moving:
+                var direction = sign(target_x - global_position.x)
+                if abs(global_position.x - target_x) > 5:
+                    # Move the player towards the target
+                    velocity.x = direction * speed
+                    animated_sprite.play("Walk")
+                    animated_sprite.flip_h = direction < 0
+                else:
+                    # Player has reached the target
+                    velocity.x = 0
+                    moving = false
+                    animated_sprite.play("Idle")
+                    check_scene_change()  # Check if scene should change
+            else:
+                velocity.x = 0
+                animated_sprite.play("Idle")
+            
+            # Apply movement and handle potential errors
+            var collision = move_and_slide()
+            if collision == null:
+                push_warning("Possible issue with move_and_slide(). Check CharacterBody2D setup.")
+            
+            # Restrict player position to scene limits
+            global_position.x = clamp(global_position.x, left_limit, right_limit)
+            print("Current player position:", global_position)
+        
+        func check_scene_change():
+            # Check if player is in a position that requires scene change
+            if global_position.x >= right_limit - SCENE_CHANGE_THRESHOLD:
+                change_scene("res://Scenes/scene2.tscn")
+        
+        func change_scene(scene_path: String):
+            # Change to the specified scene
+            print("Changing to scene:", scene_path)
+            get_node("/root/GlobalState").set_previous_scene("main")
+            var error = get_tree().change_scene_to_file(scene_path)
+            if error != OK:
+                push_error("Could not change to scene: " + scene_path)
+        
+        # IMPORTANT: I must ensure that the scene2.tscn scene exists and is properly configured.
+        # The Player node in that scene should have its own script (player_Scene2.gd) attached.
+        # This code can be reused for scenes 2 and 3 by making the necessary changes for consistency
+      </code></pre>
+
+      <p>This small achievement has taught me to understand the fundamentals of GDScript, and I hope to be able to
+        understand this language better to write more and better code in Godot. The satisfaction of seeing your code
+        working serves as great motivation to keep going. Now I must put what I've learned into practice or I'll end up
+        forgetting it sooner rather than later, as usually happens to me every time I learn something new but don't use
+        it for a while. When I want to pick it up again, I have to start from scratch. I'll try to make sure that's not
+        the case this time.</p>
+
+      <h3>Next Steps</h3>
+      <p>Now that I have the basic movement, I've realized there's a lot to do. For example, two tasks come to mind:</p>
+      <ul>
+        <li>Add obstacle detection so it doesn't go through walls.</li>
+        <li>Create an interaction system with objects in the scenario.</li>
+      </ul>
+
+      <p>This is just the beginning of my point and click adventure. I know there will be more challenges ahead, but for
+        now, I'll take a moment to celebrate this small victory.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 No Play Games Studio. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
